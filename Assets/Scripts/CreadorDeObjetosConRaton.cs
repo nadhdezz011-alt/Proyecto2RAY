@@ -1,3 +1,4 @@
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class CreadorDeObjetosConRaton : MonoBehaviour
@@ -64,10 +65,7 @@ public class CreadorDeObjetosConRaton : MonoBehaviour
             currentGameObject.SetActive(true); //Vuelvo a activar el objeto
         }
     }
-    void CrearObjeto()
-    {
-       
-    }
+    
     void ComprobarTeclado()
     {
         int oldNumber = currentPrefab;

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class Menus : MonoBehaviour
 {
     [SerializeField]
+    GameObject MenuInicial;
+    [SerializeField]
     GameObject MenuInferior;
     [SerializeField]
     GameObject MenuLateral;
@@ -20,6 +22,12 @@ public class Menus : MonoBehaviour
     {
         
     }
+    //Funcines de los botones
+    public void BotonInicio() 
+    { 
+        MenuInicial.SetActive(false);
+        MenuInferior.SetActive(true);
+    }
     public void AccionBotonCrear()
     {
         MenuInferior.SetActive(false);
@@ -28,13 +36,16 @@ public class Menus : MonoBehaviour
     }
     public void AccionBottonAsset() 
     {
+        
         MenuLateral.SetActive(false);
         MenuInferior.SetActive(true);
         CrearObjeto();
-        MoverObjeto();
+      
         ComprobarClick();
 
     }
+
+    //Funciones de creación y manipulación de objetos
     void ComprobarClick()
     {
         if (Input.GetMouseButtonUp(0))
@@ -84,5 +95,6 @@ public class Menus : MonoBehaviour
         int randomIndex = Random.Range(0, prefabs.Length);
         asset = Instantiate(prefabs[randomIndex]);
         asset.transform.position = Vector3.zero;
+        MoverObjeto();
     }
 }
