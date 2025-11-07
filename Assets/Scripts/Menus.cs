@@ -1,37 +1,52 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CreadorDeObjetosConRaton : MonoBehaviour
+public class Menus : MonoBehaviour
 {
+    [SerializeField]
+    GameObject MenuInferior;
+    [SerializeField]
+    GameObject MenuLateral;
+
     [SerializeField]
     GameObject[] prefabs;
 
     int currentPrefab = 0;
-    GameObject currentGameObject = null;
+    GameObject asset = null;
 
-    [SerializeField]
-    Material[] materials;
-    
+    //[SerializeField]
+    //Material[] materials;
     void Update()
     {
-
-        ComprobarTeclado();
         
+    }
+    public void AccionBotonCrear()
+    {
+        MenuInferior.SetActive(false);
+        MenuLateral.SetActive(true);
+        
+    }
+    public void AccionBottonAsset() 
+    {
+        MenuLateral.SetActive(false);
+        MenuInferior.SetActive(true);
+        CrearObjeto();
         MoverObjeto();
-        CambiarColor();
         ComprobarClick();
 
-
     }
-    void CambiarColor()
+    void ComprobarClick()
     {
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetMouseButtonUp(0))
         {
-            currentGameObject.GetComponent<Renderer>().material = materials[Random.Range(0, materials.Length)];
+            {
+                asset = null;
+            }
         }
     }
     void MoverObjeto()
     {
-        if (currentGameObject != null)
+        if (asset != null)
         {
             //Posición del ratón Input.mousePosition (Vector3 la posicióndel ratón)
             //Debug.Log(Input.mousePosition);
@@ -49,55 +64,25 @@ public class CreadorDeObjetosConRaton : MonoBehaviour
             RaycastHit hit;
 
 
-            currentGameObject.SetActive(false); //Desactivo el objeto para que no interfiera en el raycast
+            asset.SetActive(false); //Desactivo el objeto para que no interfiera en el raycast
             if (Physics.Raycast(myRay, out hit, 100f))
             {
                 Debug.Log("Veo algo" + hit.point);
                 //colocar el currentGameObject en la posición del hitpoint
-                currentGameObject.transform.position = hit.point + (Vector3.up);
+                asset.transform.position = hit.point + (Vector3.up);
                 //colocar el currentGameObject en la normal del hitpoint (+Vector3.up para que no se hunda en el suelo y le sume altura)
             }
             else
             {
                 Debug.Log("No veo nada");
             }
-            currentGameObject.SetActive(true); //Vuelvo a activar el objeto
+            asset.SetActive(true); //Vuelvo a activar el objeto
         }
     }
     void CrearObjeto()
     {
-       
+        int randomIndex = Random.Range(0, prefabs.Length);
+        asset = Instantiate(prefabs[randomIndex]);
+        asset.transform.position = Vector3.zero;
     }
-    void ComprobarTeclado()
-    {
-        int oldNumber = currentPrefab;
-        if (Input.GetKeyUp(KeyCode.Alpha1) || Input.GetKeyUp(KeyCode.Keypad1))
-        {
-            currentPrefab = 0;
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha2) || Input.GetKeyUp(KeyCode.Keypad2))
-        {
-            currentPrefab = 1;
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha3) || Input.GetKeyUp(KeyCode.Keypad3))
-        {
-            currentPrefab = 2;
-        }
-
-        if (currentGameObject != null && oldNumber != currentPrefab)
-        {
-            DestroyImmediate(currentGameObject);
-        }
-    }
-    void ComprobarClick()
-    {
-        if (Input.GetMouseButtonUp(0))
-        {
-            {
-                currentGameObject = null;
-            }
-        }
-    }
-   
-
 }
