@@ -2,6 +2,7 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class CreadorDeObjetosConRaton : MonoBehaviour
+ 
 {
     [SerializeField]
     GameObject[] prefabs;
@@ -87,6 +88,7 @@ public class CreadorDeObjetosConRaton : MonoBehaviour
             DestroyImmediate(currentGameObject);
         }
     }
+   
     void ComprobarClick()
     {
         if (Input.GetMouseButtonUp(0))
