@@ -20,11 +20,10 @@ public class Menus : MonoBehaviour
     [SerializeField] Text mensajeUI; // Asigna un Text en el canvas para mostrar instrucciones
 
 
-    int currentPrefab = 0;
+    
     GameObject asset = null;
 
-    //[SerializeField]
-    //Material[] materials;
+   
     void Update()
     {
         if (colocandoObjeto && asset != null)
@@ -55,10 +54,7 @@ public class Menus : MonoBehaviour
                         }
                         else
                         {
-                            // Clic en el suelo u otro objeto -> salir del modo
-                            modoMover = false;
-                            objetoSeleccionado = null;
-                            mensajeUI.text = "Modo mover desactivado.";
+                            mensajeUI.text = "Haz clic en un objeto movible.";
                         }
                     }
                 }
@@ -68,12 +64,10 @@ public class Menus : MonoBehaviour
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
 
-                    objetoSeleccionado.SetActive(false); // evitar interferencia
                     if (Physics.Raycast(ray, out hit))
                     {
                         objetoSeleccionado.transform.position = hit.point + Vector3.up;
                     }
-                    objetoSeleccionado.SetActive(true);
                 }
 
                 if (Input.GetMouseButtonUp(0) && objetoSeleccionado != null)
@@ -82,10 +76,11 @@ public class Menus : MonoBehaviour
                     mensajeUI.text = "Haz clic en otro objeto o en el suelo para salir.";
                 }
             }
+
         }
 
     }
-    //Funcines de los botones
+    ///Funcines de los botones
     public void BotonInicio() 
     { 
         MenuInicial.SetActive(false);
@@ -98,17 +93,7 @@ public class Menus : MonoBehaviour
         
     }
 
-    public void CrearObjetoPorIndice(int index)
-    {
-        if (index >= 0 && index < prefabs.Length)
-        {
-            asset = Instantiate(prefabs[index]);
-            asset.transform.position = Vector3.zero;
-            colocandoObjeto = true;
-            MenuInferior.SetActive(true);
-            MenuLateral.SetActive(false);
-        }
-    }
+    
     public void ActivarModoMover()
     {
         modoMover = true;
