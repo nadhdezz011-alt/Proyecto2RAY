@@ -1,33 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class EditorStateMachine : MonoBehaviour
 {
-    public GameObject[] prefabs;         // Array de prefabs para instanciar
-    public Button[] botonesCrear;        // Botones que activan cada prefab
-    public LayerMask capaSuelo;          // Capa para raycast en el suelo
+    public GameObject[] prefabs;
+    public Button[] botonesCrear;
+    public Button botonRotarY;
+    public LayerMask capaSuelo;
 
     private IEstadoEditor estadoActual;
 
+    public GameObject ultimoObjetoCreado { get; set; }
+
+    //  Lista con todos los objetos creados
+    public List<GameObject> objetosCreados = new List<GameObject>();
+
     private void Start()
     {
-        // Asignar listeners a cada botón según su índice
         for (int i = 0; i < botonesCrear.Length; i++)
         {
-            int index = i; // Captura segura del índice
+            int index = i;
             if (botonesCrear[i] != null)
-            {
                 botonesCrear[i].onClick.AddListener(() => ActivarModoCrear(index));
-            }
         }
+
+        if (botonRotarY != null)
+            botonRotarY.onClick.AddListener(ActivarModoRotarY);
     }
 
     private void Update()
     {
-        if (estadoActual != null)
-        {
-            estadoActual.Ejecutar(this);
-        }
+        estadoActual?.Ejecutar(this);
     }
 
     public void CambiarEstado(IEstadoEditor nuevoEstado)
@@ -44,9 +48,10 @@ public class EditorStateMachine : MonoBehaviour
             var estadoCrear = new EstadoModoCrear(prefabs[index], capaSuelo);
             CambiarEstado(estadoCrear);
         }
-        else
-        {
-            Debug.LogError("Índice de prefab inválido o prefab no asignado");
-        }
+    }
+
+    public void ActivarModoRotarY()
+    {
+        CambiarEstado(new EstadoRotarY(capaSuelo));
     }
 }

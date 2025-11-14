@@ -3,8 +3,8 @@
 //Es una plantilla de los estados
 public interface IEstadoEditor 
 {
-    void Entrar(EditorStateMachine ModoCrear);
-    void Ejecutar(EditorStateMachine ModoCrear);
-    void Salir(EditorStateMachine ModoCrear);
+    void Entrar(EditorStateMachine Objeto);
+    void Ejecutar(EditorStateMachine Objeto);
+    void Salir(EditorStateMachine Objeto);
 
 }
