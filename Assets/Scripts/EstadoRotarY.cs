@@ -5,7 +5,7 @@ public class EstadoRotarY : IEstadoEditor
     private GameObject objeto;
     private float sensibilidad = 100f;
     private bool rotando = false;
-    private bool objetoSeleccionado = false; //  nuevo flag
+    private bool esperandoConfirmacion = false; //  nuevo flag
     private LayerMask capaSuelo;
 
     public EstadoRotarY(LayerMask capaSuelo)
@@ -21,38 +21,37 @@ public class EstadoRotarY : IEstadoEditor
 
     public void Ejecutar(EditorStateMachine maquina)
     {
-        // Selección de objeto (solo si aún no estamos rotando)
+        // Selección de objeto
         if (!rotando && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
-                Debug.Log("Raycast golpeó: " + hit.collider.gameObject.name);
-
                 if (maquina.objetosCreados.Contains(hit.collider.gameObject))
                 {
                     objeto = hit.collider.gameObject;
                     rotando = true;
+                    esperandoConfirmacion = false; //  aún no confirmamos
                     Debug.Log("Objeto seleccionado: " + objeto.name);
+                    Debug.Log("Arrastra el ratón para rotar. Haz clic de nuevo para confirmar.");
                 }
             }
         }
-
 
         // Rotación libre con el ratón
         if (rotando && objeto != null)
         {
             float deltaX = Input.GetAxis("Mouse X");
             objeto.transform.Rotate(Vector3.up, deltaX * sensibilidad * Time.deltaTime);
-        }
 
-        // Finalizar al clicar en suelo (solo después de haber seleccionado)
-        if (rotando && objetoSeleccionado && Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f, capaSuelo))
+            // Activar confirmación solo después del primer frame de rotación
+            if (!esperandoConfirmacion)
             {
-                Debug.Log("Rotación finalizada en el suelo");
+                esperandoConfirmacion = true;
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Rotación confirmada en objeto: " + objeto.name);
                 maquina.CambiarEstado(null);
             }
         }
@@ -63,6 +62,6 @@ public class EstadoRotarY : IEstadoEditor
         Debug.Log("Saliendo del modo ROTAR Y");
         objeto = null;
         rotando = false;
-        objetoSeleccionado = false;
+        esperandoConfirmacion = false;
     }
 }
