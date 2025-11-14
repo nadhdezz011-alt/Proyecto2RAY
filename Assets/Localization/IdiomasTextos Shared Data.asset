@@ -13,8 +13,28 @@ MonoBehaviour:
   m_Name: IdiomasTextos Shared Data
   m_EditorClassIdentifier: 
   m_TableCollectionName: IdiomasTextos
-  m_TableCollectionNameGuidString: 00000000000000000000000000000000
-  m_Entries: []
+  m_TableCollectionNameGuidString: c24153015eff3f5419b80be2fa472364
+  m_Entries:
+  - m_Id: 16334340096
+    m_Key: _play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1786213187584
+    m_Key: _create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2267681538048
+    m_Key: _rotate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2343363559424
+    m_Key: _move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2407523827712
+    m_Key: _delete
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

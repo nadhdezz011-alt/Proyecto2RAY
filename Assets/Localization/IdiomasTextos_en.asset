@@ -17,7 +17,27 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: c24153015eff3f5419b80be2fa472364, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 16334340096
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1786213187584
+    m_Localized: Create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2267681538048
+    m_Localized: Rotate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2343363559424
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2407523827712
+    m_Localized: Delete
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
