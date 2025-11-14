@@ -1931,7 +1931,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 613411931}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277681656}
+        m_TargetAssemblyTypeName: EditorStateMachine, Assembly-CSharp
+        m_MethodName: ActivarModoEliminar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &613411931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,6 +2652,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   botonRotarY: {fileID: 1475699272}
+  botonMover: {fileID: 0}
+  botonEliminar: {fileID: 0}
   capaSuelo:
     serializedVersion: 2
     m_Bits: 8
@@ -4007,7 +4021,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1745479148}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277681656}
+        m_TargetAssemblyTypeName: EditorStateMachine, Assembly-CSharp
+        m_MethodName: ActivarModoMover
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1745479148
 MonoBehaviour:
   m_ObjectHideFlags: 0
