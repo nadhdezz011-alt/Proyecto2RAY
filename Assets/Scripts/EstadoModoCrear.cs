@@ -87,7 +87,8 @@ public class EstadoModoCrear : IEstadoEditor
 
             //  Añadir a la lista de objetos creados
             maquina.objetosCreados.Add(objetoFinal);
-
+            //  Sonido de crear
+            SoundManager.Instance.PlayCrear();
             maquina.CambiarEstado(null);
         }
     }

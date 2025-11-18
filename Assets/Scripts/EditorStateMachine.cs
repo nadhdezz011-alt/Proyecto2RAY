@@ -8,17 +8,23 @@ public class EditorStateMachine : MonoBehaviour
     public Button[] botonesCrear;
     public Button botonRotarY;
     public Button botonMover;
-    public Button botonEliminar;   //  nuevo botón eliminar
+    public Button botonEliminar; 
+
     public GameObject popupEliminar;
     public Button botonConfirmarEliminar;
     public Button botonCancelarEliminar;
-    public LayerMask capaSuelo;
 
+    public LayerMask capaSuelo;
     private IEstadoEditor estadoActual;
 
+    /// <summary>
+    /// Guarda el último objeto creado en el editor
+    /// </summary>
     public GameObject ultimoObjetoCreado { get; set; }
 
-    //  Lista con todos los objetos creados
+    /// <summary>
+    /// Lista de todos los objetos creados en el editor (con el botón crear)
+    /// </summary>
     public List<GameObject> objetosCreados = new List<GameObject>();
 
     private void Start()
@@ -62,8 +68,11 @@ public class EditorStateMachine : MonoBehaviour
         {
             var estadoCrear = new EstadoModoCrear(prefabs[index], capaSuelo);
             CambiarEstado(estadoCrear);
+
+            
         }
     }
+
 
     public void ActivarModoRotarY()
     {

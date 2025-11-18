@@ -16,7 +16,7 @@ public class EstadoRotarY : IEstadoEditor
     public void Entrar(EditorStateMachine maquina)
     {
         Debug.Log("Entrando en modo ROTAR Y");
-        Debug.Log("Haz clic en un objeto para rotarlo");
+        DebugUIManager.Show("Haz clic en un objeto para rotarlo");
     }
 
     public void Ejecutar(EditorStateMachine maquina)
@@ -33,7 +33,7 @@ public class EstadoRotarY : IEstadoEditor
                     rotando = true;
                     esperandoConfirmacion = false; //  aún no confirmamos
                     Debug.Log("Objeto seleccionado: " + objeto.name);
-                    Debug.Log("Arrastra el ratón para rotar. Haz clic de nuevo para confirmar.");
+                    DebugUIManager.Show("Arrastra el ratón para rotar. Haz clic de nuevo para confirmar.");
                 }
             }
         }
@@ -53,6 +53,7 @@ public class EstadoRotarY : IEstadoEditor
             {
                 Debug.Log("Rotación confirmada en objeto: " + objeto.name);
                 maquina.CambiarEstado(null);
+                SoundManager.Instance.PlayRotar();
             }
         }
     }

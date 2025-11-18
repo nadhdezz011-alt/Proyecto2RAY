@@ -14,12 +14,11 @@ public class EstadoMover : IEstadoEditor
     public void Entrar(EditorStateMachine maquina)
     {
         Debug.Log("Entrando en modo MOVER");
-        Debug.Log("Haz clic en un objeto para moverlo");
+        DebugUIManager.Show("Haz clic en un objeto para moverlo");
     }
 
     public void Ejecutar(EditorStateMachine maquina)
     {
-        // Selección de objeto al pulsar botón izquierdo
         if (!moviendo && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -30,15 +29,23 @@ public class EstadoMover : IEstadoEditor
                     objeto = hit.collider.gameObject;
                     moviendo = true;
                     Debug.Log("Objeto seleccionado: " + objeto.name);
-                    Debug.Log("Mantén pulsado el botón y mueve el ratón. Suelta para confirmar.");
+
+                    //  Sonido de mover
+                    SoundManager.Instance.PlayMover();
+
+                    DebugUIManager.Show("Mantén pulsado el botón y mueve el ratón. Suelta para confirmar.");
                 }
                 else if (((1 << hit.collider.gameObject.layer) & capaSuelo) != 0)
                 {
-                    // Si clicas directamente en el suelo sin objeto  salir
                     maquina.CambiarEstado(null);
                 }
             }
         }
+
+        
+    
+
+
 
         // Mientras mantienes pulsado el botón izquierdo, el objeto sigue al ratón
         if (moviendo && objeto != null && Input.GetMouseButton(0))
@@ -50,14 +57,20 @@ public class EstadoMover : IEstadoEditor
             }
         }
 
+        
         // Al soltar el botón izquierdo, confirmamos la posición
         if (moviendo && objeto != null && Input.GetMouseButtonUp(0))
         {
             Debug.Log("Movimiento confirmado en objeto: " + objeto.name);
+
+            //  Sonido al terminar de colocar
+            SoundManager.Instance.PlayMover();
+
             objeto = null;
             moviendo = false;
             Debug.Log("Haz clic en otro objeto para moverlo o en el suelo para salir.");
         }
+
     }
 
     public void Salir(EditorStateMachine maquina)

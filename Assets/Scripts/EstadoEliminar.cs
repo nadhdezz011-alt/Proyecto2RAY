@@ -21,7 +21,7 @@ public class EstadoEliminar : IEstadoEditor
     public void Entrar(EditorStateMachine maquina)
     {
         Debug.Log("Entrando en modo ELIMINAR");
-        Debug.Log("Haz clic en un objeto para eliminarlo o en el suelo para salir.");
+        DebugUIManager.Show("Haz clic en un objeto para eliminarlo o en el suelo para salir.");
         if (popupConfirmacion != null) popupConfirmacion.SetActive(false);
     }
 
@@ -64,18 +64,26 @@ public class EstadoEliminar : IEstadoEditor
             {
                 maquina.objetosCreados.Remove(objetoSeleccionado);
                 GameObject.Destroy(objetoSeleccionado);
-                Debug.Log("Objeto eliminado: " + objetoSeleccionado.name);
+                DebugUIManager.Show("Objeto eliminado: " + objetoSeleccionado.name);
+
+                //  Sonido de eliminar
+                SoundManager.Instance.PlayEliminar();
             }
             popupConfirmacion.SetActive(false);
             objetoSeleccionado = null;
         });
 
+
         botonCancelar.onClick.AddListener(() =>
         {
             popupConfirmacion.SetActive(false);
             objetoSeleccionado = null;
-            Debug.Log("Cancelado, selecciona otro objeto o haz clic en el suelo para salir.");
+            Debug.Log("Cancelado...");
+
+            //  Sonido de cancelar
+            SoundManager.Instance.PlayCancelar();
         });
+
     }
 
     public void Salir(EditorStateMachine maquina)
