@@ -6,13 +6,14 @@ public class EditorStateMachine : MonoBehaviour
 {
     public GameObject[] prefabs;
     public Button[] botonesCrear;
-    public Button botonRotarY;
-    public Button botonMover;
-    public Button botonEliminar; 
 
+    public Button botonMover;
+    public Button botonRotarY;
+    public Button botonEliminar; 
     public GameObject popupEliminar;
     public Button botonConfirmarEliminar;
     public Button botonCancelarEliminar;
+    public Button botonEscalar;
 
     public LayerMask capaSuelo;
     private IEstadoEditor estadoActual;
@@ -27,72 +28,77 @@ public class EditorStateMachine : MonoBehaviour
     /// </summary>
     public List<GameObject> objetosCreados = new List<GameObject>();
 
+
+    /// <summary>
+    /// Se le asignan las funciones a los botones
+    /// </summary>
     private void Start()
     {
-        // Botones de creación
         for (int i = 0; i < botonesCrear.Length; i++)
         {
-            int index = i;
-            if (botonesCrear[i] != null)
+            int index = i;  
+            if (botonesCrear[i] != null)   
+            {
                 botonesCrear[i].onClick.AddListener(() => ActivarModoCrear(index));
+            }
         }
 
-        // Botón de rotar
         if (botonRotarY != null)
             botonRotarY.onClick.AddListener(ActivarModoRotarY);
 
-        // Botón de mover
         if (botonMover != null)
             botonMover.onClick.AddListener(ActivarModoMover);
 
-        //  Botón de eliminar
         if (botonEliminar != null)
             botonEliminar.onClick.AddListener(ActivarModoEliminar);
-    }
 
+        if (botonEscalar != null)
+            botonEscalar.onClick.AddListener(ActivarModoEscalar);
+
+        if (botonEscalar != null)
+            botonEscalar.onClick.AddListener(ActivarModoEscalar);
+    }
+    /// <summary>
+    /// En cada frame se ejecuta la lógica del estado activo
+    /// </summary>
     private void Update()
     {
         estadoActual?.Ejecutar(this);
     }
-
+    /// <summary>
+    /// Permite cambiar a los diferentes estados del editor
+    /// </summary>
     public void CambiarEstado(IEstadoEditor nuevoEstado)
     {
         estadoActual?.Salir(this);
         estadoActual = nuevoEstado;
         estadoActual?.Entrar(this);
     }
-
+    /// <summary>
+    /// Comprueba que el objeto no sea nulo, se lo pasa al array de prebafs y cambia al estado crear
+    /// </summary>
     public void ActivarModoCrear(int index)
     {
         if (index >= 0 && index < prefabs.Length && prefabs[index] != null)
         {
             var estadoCrear = new EstadoModoCrear(prefabs[index], capaSuelo);
-            CambiarEstado(estadoCrear);
-
-            
+            CambiarEstado(estadoCrear); 
         }
     }
-
-
     public void ActivarModoRotarY()
     {
         CambiarEstado(new EstadoRotarY(capaSuelo));
     }
-
     public void ActivarModoMover()
     {
         CambiarEstado(new EstadoMover(capaSuelo));
     }
-
-    //  Nuevo método para activar el estado eliminar
     public void ActivarModoEliminar()
     {
-        CambiarEstado(new EstadoEliminar(
-            capaSuelo,
-            popupEliminar,
-            botonConfirmarEliminar,
-            botonCancelarEliminar
-        ));
+        CambiarEstado(new EstadoEliminar());
     }
-
+    public void ActivarModoEscalar()
+    {
+        CambiarEstado(new EstadoEscalar(capaSuelo));
+    }
 }
