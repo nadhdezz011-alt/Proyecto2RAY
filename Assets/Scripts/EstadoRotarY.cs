@@ -3,25 +3,28 @@ using UnityEngine;
 public class EstadoRotarY : IEstadoEditor
 {
     private GameObject objeto;
-    private float sensibilidad = 100f;
+    private float sensibilidad = 200f;
     private bool rotando = false;
     private bool esperandoConfirmacion = false; //  nuevo flag
     private LayerMask capaSuelo;
 
+    /// <summary>
+    /// Recibe el LayerMask de la capa suelo
+    /// </summary>
     public EstadoRotarY(LayerMask capaSuelo)
     {
         this.capaSuelo = capaSuelo;
     }
-
     public void Entrar(EditorStateMachine maquina)
     {
-        Debug.Log("Entrando en modo ROTAR Y");
         DebugUIManager.Show("Haz clic en un objeto para rotarlo");
     }
-
+    /// <summary>
+    /// Si no se está rotando y se hace click, se lanza un rayo, si colisiona un objeto creado, se guarda y selecciona para rotar sin confirmar.
+    /// Calcula el giro en y al mover el ratón, se espera confirmación tras el primer frame de rotación y al hacer click se confirma la rotación
+    /// </summary>
     public void Ejecutar(EditorStateMachine maquina)
     {
-        // Selección de objeto
         if (!rotando && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,20 +34,16 @@ public class EstadoRotarY : IEstadoEditor
                 {
                     objeto = hit.collider.gameObject;
                     rotando = true;
-                    esperandoConfirmacion = false; //  aún no confirmamos
-                    Debug.Log("Objeto seleccionado: " + objeto.name);
+                    esperandoConfirmacion = false;
                     DebugUIManager.Show("Arrastra el ratón para rotar. Haz clic de nuevo para confirmar.");
                 }
             }
         }
-
-        // Rotación libre con el ratón
         if (rotando && objeto != null)
         {
-            float deltaX = Input.GetAxis("Mouse X");
-            objeto.transform.Rotate(Vector3.up, deltaX * sensibilidad * Time.deltaTime);
+            float GiroY = Input.GetAxis("Mouse X");
+            objeto.transform.Rotate(Vector3.up, GiroY * sensibilidad * Time.deltaTime);
 
-            // Activar confirmación solo después del primer frame de rotación
             if (!esperandoConfirmacion)
             {
                 esperandoConfirmacion = true;
@@ -52,15 +51,16 @@ public class EstadoRotarY : IEstadoEditor
             else if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Rotación confirmada en objeto: " + objeto.name);
-                maquina.CambiarEstado(null);
                 SoundManager.Instance.PlayRotar();
+                maquina.CambiarEstado(null);
             }
         }
     }
-
+    /// <summary>
+    /// elimina referencias y resetea los estados
+    /// </summary>
     public void Salir(EditorStateMachine maquina)
     {
-        Debug.Log("Saliendo del modo ROTAR Y");
         objeto = null;
         rotando = false;
         esperandoConfirmacion = false;
