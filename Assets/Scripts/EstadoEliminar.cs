@@ -1,22 +1,24 @@
 using UnityEngine;
-using UnityEngine.EventSystems; // necesario para detectar UI
+using UnityEngine.EventSystems;
 
 public class EstadoEliminar : IEstadoEditor
 {
     private GameObject objetoSeleccionado;
-
     public void Entrar(EditorStateMachine maquina)
     {
-        Debug.Log("Entrando en modo ELIMINAR");
         DebugUIManager.Show("Haz clic en un objeto para eliminarlo o en el suelo para salir.");
 
         if (maquina.popupEliminar != null)
             maquina.popupEliminar.SetActive(false);
     }
-
+    /// <summary>
+    ///  Ignorar clics si son sobre UI. 
+    ///  Si clicas un objeto creado  mostrar popup. 
+    ///  Si clicas el suelo  salir del estado.
+    /// </summary>
     public void Ejecutar(EditorStateMachine maquina)
     {
-        // Ignorar clics si son sobre UI
+       
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
@@ -25,13 +27,11 @@ public class EstadoEliminar : IEstadoEditor
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
-                // Si clicas un objeto creado  mostrar popup
                 if (maquina.objetosCreados.Contains(hit.collider.gameObject))
                 {
                     objetoSeleccionado = hit.collider.gameObject;
                     MostrarPopup(maquina);
                 }
-                // Si clicas el suelo  salir del estado
                 else if (((1 << hit.collider.gameObject.layer) & maquina.capaSuelo) != 0)
                 {
                     maquina.CambiarEstado(null);
@@ -55,9 +55,6 @@ public class EstadoEliminar : IEstadoEditor
             {
                 maquina.objetosCreados.Remove(objetoSeleccionado);
                 GameObject.Destroy(objetoSeleccionado);
-                DebugUIManager.Show("Objeto eliminado: " + objetoSeleccionado.name);
-
-                // Sonido de eliminar
                 SoundManager.Instance.PlayEliminar();
             }
             maquina.popupEliminar.SetActive(false);
@@ -68,16 +65,11 @@ public class EstadoEliminar : IEstadoEditor
         {
             maquina.popupEliminar.SetActive(false);
             objetoSeleccionado = null;
-            Debug.Log("Cancelado...");
-
-            // Sonido de cancelar
             SoundManager.Instance.PlayCancelar();
         });
     }
-
     public void Salir(EditorStateMachine maquina)
     {
-        Debug.Log("Saliendo del modo ELIMINAR");
         if (maquina.popupEliminar != null)
             maquina.popupEliminar.SetActive(false);
 
