@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject); //  mantiene el objeto entre escenas
+            DontDestroyOnLoad(gameObject);
 
             audioSource = GetComponent<AudioSource>();
             if (audioSource == null)
@@ -31,7 +31,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // destruye duplicados, no el original
+            Destroy(gameObject);
         }
     }
 
@@ -42,7 +42,9 @@ public class SoundManager : MonoBehaviour
             audioSource.PlayOneShot(clip);
     }
 
-    // Métodos específicos para cada acción
+    /// <summary>
+    /// Métodos para reproducir sonidos específicos
+    /// </summary>
     public void PlayCrear() => PlaySound(crearClip);
     public void PlayMover() => PlaySound(moverClip);
     public void PlayEliminar() => PlaySound(eliminarClip);

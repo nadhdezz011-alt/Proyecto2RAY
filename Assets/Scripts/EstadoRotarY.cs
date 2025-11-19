@@ -3,7 +3,7 @@ using UnityEngine;
 public class EstadoRotarY : IEstadoEditor
 {
     private GameObject objeto;
-    private float sensibilidad = 200f;
+    private float sensibilidad = 300f;
     private bool rotando = false;
     private bool esperandoConfirmacion = false; //  nuevo flag
     private LayerMask capaSuelo;

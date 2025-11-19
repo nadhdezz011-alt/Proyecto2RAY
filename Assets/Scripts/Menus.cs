@@ -11,11 +11,15 @@ public class Menus : MonoBehaviour
     [Header("Animación")]
     [SerializeField] float duracion = 0.5f;
 
-    // Curvas configurables en el Inspector
+    /// <summary>
+    /// Curva de movimiento para las transiciones de los menús
+    /// </summary>
     [SerializeField] LeanTweenType curvaMovimiento = LeanTweenType.easeOutExpo;
     [SerializeField] LeanTweenType curvaFade = LeanTweenType.easeOutQuad;
 
-    // Posiciones iniciales de cada menú
+    /// <summary>
+    /// Posiciones iniciales de los menús para las animaciones
+    /// </summary>
     private Vector2 posInicialInferior;
     private Vector2 posInicialLateral;
 
@@ -25,7 +29,9 @@ public class Menus : MonoBehaviour
         posInicialLateral = MenuLateral.GetComponent<RectTransform>().anchoredPosition;
     }
 
+    /// <summary>
     /// Funciones de los botones
+    /// </summary>
     public void BotonInicio()
     {
         Ocultar(MenuInicial, () => {
@@ -53,29 +59,29 @@ public class Menus : MonoBehaviour
         SoundManager.Instance.PlayBotonMenu();
     }
 
-    // ------- Métodos auxiliares --------
-
+    /// <summary>
+    /// muestra el menú con animación
+    /// </summary>
     private void Mostrar(GameObject menu, Vector2 destino)
     {
-        // Activar sin tocar la escala
         menu.SetActive(true);
 
-        // Movimiento: entrar desde fuera de pantalla a su posición original
         RectTransform rt = menu.GetComponent<RectTransform>();
         Vector2 original = destino;
         rt.anchoredPosition = original + new Vector2(800f, 0f);
         LeanTween.move(rt, original, duracion).setEase(curvaMovimiento);
 
-        // Fade
         CanvasGroup cg = menu.GetComponent<CanvasGroup>();
         if (cg == null) cg = menu.AddComponent<CanvasGroup>();
         cg.alpha = 0f;
         LeanTween.alphaCanvas(cg, 1f, duracion).setEase(curvaFade);
     }
 
+    /// <summary>
+    /// Oculta el menú con animación
+    /// </summary>
     private void Ocultar(GameObject menu, System.Action onComplete)
     {
-        // Solo fade de salida. No tocamos la escala.
         CanvasGroup cg = menu.GetComponent<CanvasGroup>();
         if (cg == null) cg = menu.AddComponent<CanvasGroup>();
 

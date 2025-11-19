@@ -68,3 +68,48 @@ public class EstadoModoCrear : IEstadoEditor
         }
     }
 }
+/*
+private void ConfirmarCreacion(EditorStateMachine maquina)
+{
+    GameObject objetoFinal = objetoInstanciado;
+    objetoInstanciado = null;
+
+    if (objetoFinal != null)
+    {
+        // Obtener la info de precios del prefab
+        ObjetoInfo info = prefab.GetComponent<ObjetoInfo>();
+
+        if (info != null)
+        {
+            // Comprobar si hay dinero suficiente
+            if (maquina.dinero >= info.precioCompra)
+            {
+                maquina.dinero -= info.precioCompra; // pagar
+
+                objetoFinal.name = prefab.name;
+                maquina.ultimoObjetoCreado = objetoFinal;
+                maquina.objetosCreados.Add(objetoFinal);
+
+                SoundManager.Instance.PlayCrear();
+                Debug.Log("Compraste " + objetoFinal.name + " por " + info.precioCompra +
+                          ". Dinero restante: " + maquina.dinero);
+
+                maquina.CambiarEstado(null);
+            }
+            else
+            {
+                Debug.Log("No tienes suficiente dinero para comprar este objeto.");
+                GameObject.Destroy(objetoFinal); // cancelar creación
+            }
+        }
+        else
+        {
+            Debug.LogWarning("El prefab no tiene ObjetoInfo, no se aplicó precio.");
+            objetoFinal.name = prefab.name;
+            maquina.ultimoObjetoCreado = objetoFinal;
+            maquina.objetosCreados.Add(objetoFinal);
+            maquina.CambiarEstado(null);
+        }
+    }
+}
+*/

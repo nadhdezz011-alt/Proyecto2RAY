@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class DebugUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject contenedor;       // Panel/imagen que contiene el texto y botón
-    [SerializeField] private TextMeshProUGUI debugText;   // Texto dentro del contenedor
-    [SerializeField] private Button botonEliminar;        // Botón para limpiar
+    [SerializeField] private GameObject contenedor;
+    [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] private Button botonEliminar;
 
     [Header("Animación")]
     [SerializeField] private float duracion = 0.5f;

@@ -76,3 +76,25 @@ public class EstadoEliminar : IEstadoEditor
         objetoSeleccionado = null;
     }
 }
+/*
+ * maquina.botonConfirmarEliminar.onClick.AddListener(() =>
+{
+    if (objetoSeleccionado != null)
+    {
+        // Recuperar dinero al vender
+        ObjetoInfo info = objetoSeleccionado.GetComponent<ObjetoInfo>();
+        if (info != null)
+        {
+            maquina.dinero += info.precioVenta;
+            Debug.Log("Vendiste " + objetoSeleccionado.name + " por " + info.precioVenta +
+                      ". Dinero actual: " + maquina.dinero);
+        }
+
+        maquina.objetosCreados.Remove(objetoSeleccionado);
+        GameObject.Destroy(objetoSeleccionado);
+        SoundManager.Instance.PlayEliminar();
+    }
+    maquina.popupEliminar.SetActive(false);
+    objetoSeleccionado = null;
+});
+*/

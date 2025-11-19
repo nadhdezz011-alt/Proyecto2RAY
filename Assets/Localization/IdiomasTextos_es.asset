@@ -38,6 +38,22 @@ MonoBehaviour:
     m_Localized: Eliminar
     m_Metadata:
       m_Items: []
+  - m_Id: 2209574523334656
+    m_Localized: Mejor no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2209794820763648
+    m_Localized: Escalar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2210440911351808
+    m_Localized: "\xBFQuieres eliminar este objeto?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2210738732101632
+    m_Localized: Confirmar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

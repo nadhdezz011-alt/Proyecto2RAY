@@ -35,6 +35,22 @@ MonoBehaviour:
     m_Key: _delete
     m_Metadata:
       m_Items: []
+  - m_Id: 2209574523334656
+    m_Key: _better no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2209794820763648
+    m_Key: _scale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2210440911351808
+    m_Key: _do you want to delete this item?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2210738732101632
+    m_Key: _confirm
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
