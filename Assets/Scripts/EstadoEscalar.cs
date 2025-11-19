@@ -16,13 +16,14 @@ public class EstadoEscalar : IEstadoEditor
 
     public void Entrar(EditorStateMachine maquina)
     {
-        Debug.Log("Entrando en modo ESCALAR");
         DebugUIManager.Show("Haz clic en un objeto para escalarlo");
     }
 
+    /// <summary>
+    /// Selecciona un objeto al hacer click si no está escalando.
+    /// </summary>
     public void Ejecutar(EditorStateMachine maquina)
     {
-        // Selección de objeto
         if (!escalando && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -35,37 +36,35 @@ public class EstadoEscalar : IEstadoEditor
                     esperandoConfirmacion = false;
                     escalaInicial = objeto.transform.localScale;
                     posicionInicialMouse = Input.mousePosition;
-
-                    Debug.Log("Objeto seleccionado: " + objeto.name);
                     DebugUIManager.Show("Arrastra el ratón horizontalmente para escalar. Haz clic de nuevo para confirmar.");
                 }
             }
         }
-
-        // Escalado dinámico con el ratón
+        
         if (escalando && objeto != null)
         {
             float deltaX = Input.mousePosition.x - posicionInicialMouse.x;
-            float factor = 1 + deltaX * 0.01f; // sensibilidad del escalado
-            objeto.transform.localScale = escalaInicial * Mathf.Max(factor, 0.1f);
+            float factor = 1 + deltaX * 0.01f;
 
-            // Activar confirmación después del primer frame
+            if (factor < 0.1f)
+            {
+                factor = 0.1f;
+            }
+
+            objeto.transform.localScale = escalaInicial * factor;
+
             if (!esperandoConfirmacion)
             {
                 esperandoConfirmacion = true;
             }
             else if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Escalado confirmado en objeto: " + objeto.name);
                 maquina.CambiarEstado(null);
-                
             }
         }
     }
-
     public void Salir(EditorStateMachine maquina)
     {
-        Debug.Log("Saliendo del modo ESCALAR");
         objeto = null;
         escalando = false;
         esperandoConfirmacion = false;
