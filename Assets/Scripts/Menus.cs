@@ -7,6 +7,7 @@ public class Menus : MonoBehaviour
     [SerializeField] GameObject MenuInicial;
     [SerializeField] GameObject MenuInferior;
     [SerializeField] GameObject MenuLateral;
+    [SerializeField] GameObject MenuColores;
 
     [Header("Animación")]
     [SerializeField] float duracion = 0.5f;
@@ -16,17 +17,19 @@ public class Menus : MonoBehaviour
     /// </summary>
     [SerializeField] LeanTweenType curvaMovimiento = LeanTweenType.easeOutExpo;
     [SerializeField] LeanTweenType curvaFade = LeanTweenType.easeOutQuad;
+    [SerializeField] LeanTweenType curva = LeanTweenType.easeInBack;
 
     /// <summary>
     /// Posiciones iniciales de los menús para las animaciones
     /// </summary>
     private Vector2 posInicialInferior;
     private Vector2 posInicialLateral;
-
+    private Vector2 posInicialColor;
     private void Awake()
     {
         posInicialInferior = MenuInferior.GetComponent<RectTransform>().anchoredPosition;
         posInicialLateral = MenuLateral.GetComponent<RectTransform>().anchoredPosition;
+        posInicialColor = MenuColores.GetComponent<RectTransform>().anchoredPosition;
     }
 
     /// <summary>
@@ -57,6 +60,11 @@ public class Menus : MonoBehaviour
         });
 
         SoundManager.Instance.PlayBotonMenu();
+    }
+    public void AccionBotonColor()
+    {
+
+        Mostrar(MenuColores, posInicialLateral);
     }
 
     /// <summary>

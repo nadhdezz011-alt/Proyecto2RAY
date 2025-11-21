@@ -51,6 +51,26 @@ MonoBehaviour:
     m_Key: _confirm
     m_Metadata:
       m_Items: []
+  - m_Id: 2366732151808000
+    m_Key: _red
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2366799260672000
+    m_Key: _green
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2366876708495360
+    m_Key: _yellow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2366949353840640
+    m_Key: _blue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2397242680926208
+    m_Key: _change color
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

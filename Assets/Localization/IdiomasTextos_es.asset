@@ -54,6 +54,26 @@ MonoBehaviour:
     m_Localized: Confirmar
     m_Metadata:
       m_Items: []
+  - m_Id: 2366732151808000
+    m_Localized: Rojo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2366799260672000
+    m_Localized: Verde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2366876708495360
+    m_Localized: Amarillo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2366949353840640
+    m_Localized: Azul
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2397242680926208
+    m_Localized: Cambiar color
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -1,19 +1,23 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class EditorStateMachine : MonoBehaviour
 {
     public GameObject[] prefabs;
     public Button[] botonesCrear;
-
     public Button botonMover;
     public Button botonRotarY;
     public Button botonEliminar; 
     public GameObject popupEliminar;
     public Button botonConfirmarEliminar;
     public Button botonCancelarEliminar;
+
     public Button botonEscalar;
+
+    public Button BotonesColores;
+    public Material colores;
 
     public LayerMask capaSuelo;
     private IEstadoEditor estadoActual;
@@ -57,6 +61,10 @@ public class EditorStateMachine : MonoBehaviour
 
         if (botonEscalar != null)
             botonEscalar.onClick.AddListener(ActivarModoEscalar);
+
+        if (botonEscalar != null)
+            BotonesColores.onClick.AddListener(ActivarModoColor);
+
     }
     /// <summary>
     /// En cada frame se ejecuta la lógica del estado activo
@@ -101,4 +109,9 @@ public class EditorStateMachine : MonoBehaviour
     {
         CambiarEstado(new EstadoEscalar(capaSuelo));
     }
+    public void ActivarModoColor()
+    {
+        CambiarEstado(new CambiarColor(capaSuelo));
+    }
 }
+

@@ -8,12 +8,13 @@ public class EstadoEscalar : IEstadoEditor
     private LayerMask capaSuelo;
     private Vector3 escalaInicial;
     private Vector3 posicionInicialMouse;
+    
 
     public EstadoEscalar(LayerMask capaSuelo)
     {
         this.capaSuelo = capaSuelo;
     }
-
+    
     public void Entrar(EditorStateMachine maquina)
     {
         DebugUIManager.Show("Haz clic en un objeto para escalarlo");
@@ -36,19 +37,23 @@ public class EstadoEscalar : IEstadoEditor
                     esperandoConfirmacion = false;
                     escalaInicial = objeto.transform.localScale;
                     posicionInicialMouse = Input.mousePosition;
-                    DebugUIManager.Show("Arrastra el ratón horizontalmente para escalar. Haz clic de nuevo para confirmar.");
+                    DebugUIManager.Show("Arrastra el ratón verticalmente para escalar. Haz clic de nuevo para confirmar.");
                 }
             }
         }
         
         if (escalando && objeto != null)
         {
-            float deltaX = Input.mousePosition.x - posicionInicialMouse.x;
-            float factor = 1 + deltaX * 0.01f;
+            float deltaY = Input.mousePosition.y - posicionInicialMouse.y;
+            float factor = 1 + deltaY * 0.01f;
 
-            if (factor < 0.1f)
+            if (factor < 1f)
             {
-                factor = 0.1f;
+                factor = 1f;
+            }
+            if (factor > 3f)
+            {
+                factor = 3f;
             }
 
             objeto.transform.localScale = escalaInicial * factor;
